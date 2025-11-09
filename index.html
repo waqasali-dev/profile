@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waqas Ali - Student Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #4cc9f0;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4bb543;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+        }
+        
+        .profile-header {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .profile-img-container {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--accent), #7209b7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.5s ease;
+        }
+        
+        .profile-img-container:hover {
+            transform: scale(1.05);
+        }
+        
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .img-placeholder {
+            color: white;
+            text-align: center;
+            font-size: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .img-placeholder i {
+            font-size: 50px;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 5px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+        
+        .cgpa-badge {
+            display: inline-block;
+            background-color: var(--success);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-top: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+        
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            padding: 40px;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-top: 5px solid var(--primary);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+        
+        .card h2 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .card h2 i {
+            margin-right: 10px;
+            color: var(--primary);
+        }
+        
+        .info-item {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .info-label {
+            font-weight: 600;
+            width: 180px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+        }
+        
+        .info-label i {
+            margin-right: 8px;
+            color: var(--primary);
+            width: 20px;
+        }
+        
+        .info-value {
+            color: #555;
+            flex: 1;
+        }
+        
+        .list {
+            list-style-type: none;
+        }
+        
+        .list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .list li:last-child {
+            border-bottom: none;
+        }
+        
+        .list li i {
+            color: var(--accent);
+            margin-right: 10px;
+        }
+        
+        .teachers-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .teacher-tag {
+            background: linear-gradient(135deg, var(--accent), #4895ef);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        footer {
+            background: linear-gradient(135deg, var(--secondary), var(--dark));
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.2rem;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            transform: translateY(-3px);
+            color: var(--accent);
+        }
+        
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+        
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .dark-mode {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: #ecf0f1;
+        }
+        
+        .dark-mode .container {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+        }
+        
+        .dark-mode .card {
+            background-color: #34495e;
+            color: #ecf0f1;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .dark-mode .info-label,
+        .dark-mode .card h2 {
+            color: #ecf0f1;
+        }
+        
+        .dark-mode .info-value {
+            color: #bdc3c7;
+        }
+        
+        .dark-mode .list li {
+            border-bottom: 1px solid #4a5f7a;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .profile-img-container {
+                width: 150px;
+                height: 150px;
+            }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(76, 201, 240, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(76, 201, 240, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(76, 201, 240, 0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+            <div class="profile-header">
+                <div class="profile-img-container pulse">
+                    <!-- Image placeholder - replace with your image -->
+                    <div class="img-placeholder">
+                        <i class="fas fa-user-graduate"></i>
+                        <span>waqas.jpg</span>
+                    </div>
+                </div>
+                <h1>Waqas Ali</h1>
+                <p class="subtitle">BS Information Technology</p>
+                <p class="subtitle">5th Semester</p>
+                <div class="cgpa-badge">CGPA: 3.49</div>
+            </div>
+        </header>
+        
+        <div class="content">
+            <div class="card">
+                <h2><i class="fas fa-user"></i> Personal Information</h2>
+                <div class="info-item">
+                    <span class="info-label"><i class="fas fa-signature"></i> Full Name:</span>
+                    <span class="info-value">Waqas Ali</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label"><i class="fas fa-user-friends"></i> Father's Name:</span>
+                    <span class="info-value">M. Asghar Ali</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label"><i class="fas fa-graduation-cap"></i> Program:</span>
+                    <span class="info-value">BS Information Technology</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label"><i class="fas fa-calendar-alt"></i> Semester:</span>
+                    <span class="info-value">5th</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label"><i class="fas fa-star"></i> CGPA:</span>
+                    <span class="info-value">3.49</span>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2><i class="fas fa-book-open"></i> Academic Preferences</h2>
+                <div class="info-item">
+                    <span class="info-label"><i class="fas fa-heart"></i> Favourite Subjects:</span>
+                    <span class="info-value">
+                        <ul class="list">
+                            <li><i class="fas fa-database"></i> DataBase</li>
+                            <li><i class="fas fa-code"></i> Web Technologies</li>
+                        </ul>
+                    </span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label"><i class="fas fa-chalkboard-teacher"></i> Favourite Teachers:</span>
+                    <div class="info-value">
+                        <div class="teachers-list">
+                            <div class="teacher-tag">Sir Shahbaz Wasti</div>
+                            <div class="teacher-tag">Sir Muhammad Fayyaz</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Student Profile - University Assignment</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const profileImgContainer = document.querySelector('.profile-img-container');
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+            
+            // Function to check if image exists and update
+            function updateProfileImage() {
+                const img = new Image();
+                img.src = 'waqas.jpg';
+                img.className = 'profile-img';
+                
+                img.onload = function() {
+                    profileImgContainer.innerHTML = '';
+                    profileImgContainer.appendChild(img);
+                    profileImgContainer.classList.remove('pulse');
+                };
+                
+                img.onerror = function() {
+                    // Image not found, keep placeholder
+                    console.log('Image waqas.jpg not found. Using placeholder.');
+                };
+            }
+            
+            // Check for image initially
+            updateProfileImage();
+            
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', function() {
+                body.classList.toggle('dark-mode');
+                const icon = themeToggle.querySelector('i');
+                if (body.classList.contains('dark-mode')) {
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                } else {
+                    icon.classList.remove('fa-sun');
+                    icon.classList.add('fa-moon');
+                }
+            });
+            
+            // Add animation to cards on scroll
+            const cards = document.querySelectorAll('.card');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'fadeIn 0.8s ease-out forwards';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
