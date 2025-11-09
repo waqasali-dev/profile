@@ -177,6 +177,12 @@
             display: flex;
             align-items: center;
         }
+
+        .profile-img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
         
         .card h2 i {
             margin-right: 10px;
@@ -357,7 +363,8 @@
                 <div class="profile-img-container pulse">
                     <!-- Image placeholder - replace with your image -->
                     <div class="img-placeholder">
-                        <image src="waqas.jpeg" alt="Profile Image">
+                        <image class="profile-img" src="waqas.jpeg" alt="Profile Image">
+                        <i class="fas fa-user"></i>
                     </div>
                 </div>
                 <h1>Waqas Ali</h1>
